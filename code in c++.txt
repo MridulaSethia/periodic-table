@@ -1,0 +1,717 @@
+~~~~~~~~~~~PERIODIC TABLE~~~~~~~~~~~
+#include<iostream.h>
+#include<conio.h>
+#include<fstream.h>
+#include<stdio.h>
+#include<string.h>
+#include<process.h>
+
+  class table
+		{
+		            private:
+			       char name[30],blk[10];
+		                      int atno,valency;
+			       float atmass;
+		             public:
+			        void create();
+		                      void insert();
+			       void print();
+			       void searchbyname();
+		                      void searchbyatno();
+			       void searchbyatmass();
+			       void searchbyblk();
+			       void modifybyname();
+			      void modifybyatno();
+			      void modifybyatmass();
+			      void modifybyblk();
+			     void delbyname();
+			     void delbyatno();
+			     void delbyatmass();
+			    void delbyblk();
+	      };
+ /*=======================================================
+ *********************************************************
+		        CREATE function
+ *********************************************************
+ =========================================================*/
+
+	  void table::create()
+			  {
+				  char ch;
+		 ofstream f1("records",ios::binary|ios::out);
+		do
+		 {
+			 cout<<"\nEnter the name of element: ";
+			 gets(name);
+			 cout<<"\nEnter the atomic number: ";
+			 cin>>atno;
+			 cout<<"\nEnter the atomic mass: ";
+			 cin>>atmass;
+			 cout<<"\nEnter the block: ";
+			 gets(blk);
+			 cout<<"\nEnter the valency: ";
+			 cin>>valency;
+		f1.write((char*)this,sizeof(table));
+			  cout<<"\nDo you want to continue?: ";
+			  cin>>ch;
+		 }while(ch=='y'||ch=='Y');
+f1.close();
+                  }
+ 
+/*=======================================================
+ *********************************************************
+			 INSERT function
+ *********************************************************
+ =========================================================*/
+                                      void table::insert()
+				 {
+					char ch;
+			 ofstream f1("records",ios::binary|ios::app);
+
+		  do
+			 {
+					cout<<"\nEnter the name of element: ";
+					gets(name);
+					cout<<"\nEnter the atomic number: ";
+					cin>>atno;
+					cout<<"\nEnter the atomic mass: ";
+					cin>>atmass;
+					cout<<"\nEnter the block: ";
+					gets(blk);
+					cout<<"\nEnter the valency: ";
+					cin>>valency;
+		  f1.write((char*)this,sizeof(table)) ;
+					cout<<"\nDo you want to continue?: ";
+					cin>>ch;
+
+			 }while(ch=='y'||ch=='Y');
+f1.close();
+                                          }
+
+/*=======================================================
+ *********************************************************
+			 PRINT function
+ *********************************************************
+ =========================================================*/
+
+               void table::print()
+	       {
+	  ifstream f1("records",ios::binary|ios::in);
+                                             gotoxy(10,6);
+			  cout<<"Name";
+			  gotoxy(25,6);
+			  cout<<"Atomic Number";
+			  gotoxy(45,6);
+			  cout<<"Atomic Mass";
+			  gotoxy(60,6);
+			  cout<<"Block";
+			  gotoxy(70,6);
+			  cout<<"Valency";
+			  gotoxy(10,7);
+
+ cout<<"===================================================================";
+
+			int r=8;
+	 while(f1.read((char*)this,sizeof(table)))
+				{
+				gotoxy(10,r);
+				cout<<name;
+				gotoxy(28,r);
+				cout<<atno;
+				gotoxy(48,r);
+				cout<<atmass;
+				gotoxy(62,r);
+				cout<<blk;
+				gotoxy(74,r);
+				cout<<valency;
+
+					  r++;
+
+			  }
+
+		      f1.close();
+			  }
+
+/*=======================================================
+ *********************************************************
+			SEARCH BY NAME function
+ *********************************************************
+ =========================================================*/
+
+		 void table::searchbyname()
+			 {
+				int flag=0;
+				char n[20];
+                ifstream f1("records",ios::binary|ios::in);
+			  cout<<"\nEnter the name you want to print: ";
+			  gets(n);
+
+	 while(f1.read((char*)this,sizeof(table)))
+
+			  {
+				 if(strcmp(n,name)==0)
+					 {
+						 gotoxy(10,6);
+						 cout<<"Name";
+						 gotoxy(25,6);
+						 cout<<"Atomic Number";
+						 gotoxy(45,6);
+						 cout<<"Atomic Mass";
+						 gotoxy(60,6);
+						 cout<<"Block";
+						 gotoxy(70,6);
+						 cout<<"Valency";
+						 gotoxy(10,7);
+ cout<<"===================================================================";
+
+			 int r=8;
+
+
+				  gotoxy(10,r);
+				 cout<<name;
+				 gotoxy(28,r);
+			              cout<<atno;
+			              gotoxy(48,r);
+			              cout<<atmass;
+			              gotoxy(62,r);
+			              cout<<blk;
+			              gotoxy(74,r);
+			             cout<<valency;
+
+		r++;
+              flag=1;
+		 break;
+		
+        }
+
+	 }
+if(flag==0)
+cout<<"\nRecords not Found: ";
+  f1.close();
+       
+}
+/*=======================================================
+ *********************************************************
+		 SEARCH BY ATOMIC NO. function
+ *********************************************************
+ =========================================================*/
+
+                                void table::searchbyatno()
+				 {
+			                     int flag=0;
+			                     int n;
+                                             ifstream f1("records",ios::binary|ios::in);
+                                             cout<<"\nEnter the atomic no. you want to print: ";
+                                             cin>>n;
+                        while(f1.read((char*)this,sizeof(table)))
+		{
+		      if(atno==n)
+				 {
+                                       gotoxy(10,6);
+	                        cout<<"Name";
+              		         gotoxy(25,6);
+	            	        cout<<"Atomic Number";
+gotoxy(45,6);
+cout<<"Atomic Mass";
+gotoxy(60,6);
+cout<<"Block";
+gotoxy(70,6);
+cout<<"Valency";
+gotoxy(10,7);
+
+  cout<<"===================================================================";
+
+		
+                                   int r=8;
+                                                gotoxy(10,r);
+cout<<name;
+gotoxy(28,r);
+cout<<atno;
+gotoxy(48,r);
+cout<<atmass;
+gotoxy(62,r);
+cout<<blk;
+gotoxy(74,r);
+cout<<valency;
+
+r++;
+ flag=1;
+	break;
+	}
+		 }
+if(flag==0)
+ cout<<"Records not Found: ";
+
+ f1.close();
+
+ }
+
+/*=======================================================
+ *********************************************************
+		 SEARCH BY ATOMIC MASS function
+ *********************************************************
+ =========================================================*/
+
+             void table::searchbyatmass()
+
+ {
+	int flag=0;
+	float m;
+ifstream f1("records",ios::binary|ios::in);
+	  cout<<"\nEnter the atomic mass of element you want to print: ";
+	  cin>>m;
+
+while(f1.read((char*)this,sizeof(table)))
+         {   
+                   if(atmass==m)
+{
+gotoxy(10,6);
+cout<<"Name";
+gotoxy(25,6);
+cout<<"Atomic Number";
+gotoxy(45,6);
+cout<<"Atomic Mass";
+gotoxy(60,6);
+cout<<"Block";
+gotoxy(70,6);
+cout<<"Valency";
+gotoxy(10,7);
+	 cout<<"===================================================================";  
+                                  		 int r=8;
+
+
+gotoxy(10,r);
+cout<<name;
+gotoxy(28,r);
+cout<<atno;
+gotoxy(48,r);
+cout<<atmass;
+gotoxy(62,r);
+cout<<blk;
+gotoxy(74,r);
+cout<<valency;
+r++;
+
+flag=1;
+   break;
+	}
+     	      }
+
+if(flag==0)
+    cout<<"\nRecords not Found: ";
+
+ f1.close();
+
+	  }
+/*=======================================================
+ *********************************************************
+		SEARCH BY BLOCK function
+ *********************************************************
+ =========================================================*/
+
+                    void table::searchbyblk()
+		{
+			int flag=0;
+			 char b[10];
+	  ifstream f1("records",ios::binary|ios::in);
+	  cout<<"\nEnter the block of elements you want to print: ";
+	gets(b);
+
+gotoxy(10,6);
+cout<<"Name";
+gotoxy(25,6);
+cout<<"Atomic Number";
+gotoxy(45,6);
+cout<<"Atomic Mass";
+gotoxy(60,6);
+cout<<"Block";
+gotoxy(70,6);
+cout<<"Valency";
+gotoxy(10,7);
+ cout<<"===================================================================";
+                 	int r=8;
+
+ while(f1.read((char*)this,sizeof(table)))
+		 {
+                                 if(strcmp(b,blk)==0)
+			{
+                                                      gotoxy(10,r);
+cout<<name;
+gotoxy(28,r);
+cout<<atno;
+gotoxy(48,r);
+cout<<atmass;
+gotoxy(62,r);
+cout<<blk;
+gotoxy(74,r);
+cout<<valency;
+                                 r++;
+	  flag=1;
+
+			}
+		}
+ if(flag==0)
+    cout<<"\nRecords not Found: ";
+	f1.close();
+
+}
+
+
+
+/*=======================================================
+ *********************************************************
+		 MODIFY BY NAME function
+ *********************************************************
+ =========================================================*/
+
+
+  void table::modifybyname()
+     {
+	 ofstream f2("temp",ios::binary|ios::out);
+	  char n[20],a[20];
+
+	 ifstream f1("records",ios::binary|ios::in);
+cout<<"\nEnter the name of element you want to change: ";
+gets(a);
+cout<<"\nEnter the new name: ";
+gets(n);
+  while(f1.read((char*)this,sizeof(table)))
+	{
+	          if(strcmp(a,name)==0)
+                 	strcpy(name,n);
+ f2.write((char*)this,sizeof(table));
+              }
+	  f1.close();
+	  f2.close();
+remove("records");
+rename("temp","records");
+	  }
+
+
+/*=======================================================
+ *********************************************************
+		 MODIFY BY ATOMIC NO. function
+ *********************************************************
+ =========================================================*/
+
+  void table::modifybyatno()
+	{
+	  ofstream f2("temp",ios::binary|ios::out);
+	  int a,n;
+
+ ifstream f1("records",ios::binary|ios::in) ;
+                cout<<"\nEnter the atomic no. of element you want to change: ";
+			 cin>>a;
+			 cout<<"\nEnter the new atomic number: ";
+			 cin>>n;
+		while(f1.read((char*)this,sizeof(table)))
+		 {
+					if(atno==a)
+						 atno=n;
+	  f2.write((char*)this,sizeof(table));
+		 }
+			 f1.close();
+			 f2.close();
+
+			remove("records");
+			rename("temp","records");
+			}
+
+/*=======================================================
+ *********************************************************
+		 MODIFY BY ATOMIC MASS function
+ *********************************************************
+ =========================================================*/
+
+	 void table::modifybyatmass()
+	{
+	ofstream f2("temp",ios::binary|ios::out) ;
+		float m,o;
+
+	ifstream f1("records",ios::binary|ios::in)   ;
+		  cout<<"\nEnter the atomic mass of element you want to change: ";
+	               cin>>o;
+		  cout<<"\nEnter the new atomic mass: ";
+		  cin>>m;
+	while(f1.read((char*)this,sizeof(table)))
+	{
+		if(atmass==o)
+			atmass=m;
+	 f2.write((char*)this,sizeof(table));
+
+	 }
+	  f1.close();
+	  f2.close();
+	remove("records");
+	rename("temp","records");
+	}
+
+
+/*=======================================================
+ *********************************************************
+		 MODIFY BY BLOCK function
+ *********************************************************
+ =========================================================*/
+
+       void table::modifybyblk()
+            {
+    ofstream f2("temp",ios::binary|ios::out)   ;
+    char b[10],a[10];
+
+ifstream f1("records",ios::binary|ios::in)     ;
+    cout<<"\nEnter the block of element you want to change: ";
+   gets(a);
+   cout<<"\nEnter the block name: ";
+   gets(b);
+
+while(f1.read((char*)this,sizeof(table)))
+	{
+		if(strcmp(a,blk)==0)
+				strcpy(blk,b)  ;
+	 f2.write((char*)this,sizeof(table));
+	 }
+	  f1.close();
+	  f2.close();
+	remove("records");
+	rename("temp","records");
+	}
+
+
+ /*=======================================================
+ *********************************************************
+		 DELETE BY NAME function
+ *********************************************************
+ =========================================================*/
+
+void table::delbyname()
+  {
+    ofstream f2("temp",ios::binary|ios::out);
+       char n[20];
+  ifstream f1("records",ios::binary|ios::in);
+	 cout<<"\nEnter the name of Element you want to delete: ";
+	 gets(n);
+  while(f1.read((char*)this,sizeof(table)))
+  {
+	if(strcmp(name,n)!=0)
+  f2.write((char*)this,sizeof(table));
+
+}
+ f1.close();
+ f2.close();
+remove("records");
+rename("temp","records");
+
+}
+ /*=======================================================
+ *********************************************************
+		 DELETE BY ATOMIC NO. function
+ *********************************************************
+ =========================================================*/
+
+     void table::delbyatno()
+           {
+  ofstream f2("temp",ios::binary|ios::out);
+        int n;
+  ifstream f1("records",ios::binary|ios::in);
+        cout<<"\nEnter the atomic no. Of Element  you want to delete: ";
+       cin>>n;
+  while(f1.read((char*)this,sizeof(table)))
+     {
+	if(atno!=n)
+  f2.write((char*)this,sizeof(table));
+
+}
+ f1.close();
+ f2.close();
+remove("records");
+rename("temp","records");
+}
+ /*=======================================================
+ *********************************************************
+		 DELETE BY ATOMIC MASS function
+ *********************************************************
+ =========================================================*/
+
+void table::delbyatmass()
+  {
+  ofstream f2("temp",ios::binary|ios::out);
+  float  n;
+  ifstream f1("records",ios::binary|ios::in);
+	 cout<<"\nEnter the atomic mass of Element  you want to delete: ";
+	 cin>>n;
+  while(f1.read((char*)this,sizeof(table)))
+  {
+	if(atmass!=n)
+  f2.write((char*)this,sizeof(table));
+
+}
+ f1.close();
+ f2.close();
+remove("records");
+rename("temp","records");
+
+}
+
+ /*=======================================================
+ *********************************************************
+		 DELETE BY BLOCK function
+ *********************************************************
+ =========================================================*/
+
+
+           void table::delbyblk()
+           {
+    ofstream f2("temp",ios::binary|ios::out);
+          char n[20];
+  ifstream f1("records",ios::binary|ios::in);
+	 cout<<"\nEnter the block of Element  you want to delete: ";
+	 gets(n);
+     while(f1.read((char*)this,sizeof(table)))
+    {
+	if(strcmp(blk,n)!=0)
+    f2.write((char*)this,sizeof(table));
+
+}
+ f1.close();
+ f2.close();
+remove("records");
+       rename("temp","records");
+
+   }
+
+
+void main()
+{
+cout<<"\n\t====================================================================";
+cout<<"\n\t********************************************************************";
+cout<<"\n\t^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^";
+cout<<"\n\n\t\t\t\tPERIODIC TABLE";
+cout<<"\n\n\t\t\t\t    OF ";
+cout<<"\n\n\t\t\t\t  ELEMENTS  ";
+cout<<"\n\n\n\t^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^";
+cout<<"\n\t******************************************************************";
+cout<<"\n\t==================================================================";
+cout<<"\n\n\n\t\tPRESS ANY KEY TO CONTINUE.............";
+getch();
+clrscr();
+
+  int ch,choice;
+  table a;
+  cout<<"\n\t*******************************************************************";
+  cout<<"\n\t==========================PERIODIC TABLE=========================== ";
+  cout<<"\n\t*******************************************************************";
+  cout<<"\n\n\t\t\t !!!!  Choose a Option !!!!  ";
+  cout<<"\n\n\t\t 1 : First time User ";
+  cout<<"\n\t\t 2 : Already a User";
+  cout<<"\n\n\t\t Enter your choice: ";
+  cin>>choice;
+  getch();
+  clrscr();
+  switch(choice)
+  {
+	case 1:a.create();
+  }
+  cout<<"\n\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+  cout<<"\n\t----------------------------MENU-----------------------------";
+  cout<<"\n\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+
+  do
+  {
+  cout<<"\n\n\t 1.ADD ELEMENTS";
+  cout<<"\n\t 2.DISPLAY ALL ELEMENTS";
+  cout<<"\n\t 3.SEARCH BY NAME";
+  cout<<"\n\t 4.SEARCH BY ATOMIC NUMBER";
+  cout<<"\n\t 5.SEARCH BY ATOMIC MASS";
+  cout<<"\n\t 6.SEARCH BY BLOCK";
+  cout<<"\n\t 7.MODIFY BY NAME";
+  cout<<"\n\t 8.MODIFY BY ATOMIC NUMBER";
+  cout<<"\n\t 9.MODIFY BY ATOMIC MASS";
+cout<<"\n\t 10.MODIFY BY BLOCK";
+cout<<"\n\t 11.DELETE RECORD BY NAME";
+cout<<"\n\t 12.DELETE RECORD BY ATOMIC NUMBER";
+cout<<"\n\t 13.DELETE RECORD BY ATOMIC MASS";
+cout<<"\n\t 14.DELETE RECORD BY BLOCK";
+cout<<"\n\t 0.EXIT ";
+  cout<<"\n\n\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+  cout<<"\n\t---------------------------------------------------------------";
+  cout<<"\n\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+
+cout<<"\n Enter your choice(1-11): ";
+cin>>ch;
+getch();
+clrscr();
+switch(ch)
+  {
+	 case 1: a.insert();
+				  break;
+	 case 2: a.print();
+				  break;
+	 case 3: a.searchbyname();
+				  break;
+	 case 4: a.searchbyatno();
+				  break;
+	 case 5: a.searchbyatmass();
+				  break;
+	 case 6: a.searchbyblk();
+				  break;
+	 case 7: a.modifybyname();
+
+				a.print();
+				  break;
+	 case 8: a.modifybyatno();
+
+				 a.print();
+				  break;
+	 case 9: a.modifybyatmass();
+                                                        a.print();
+				  break;
+	case 10: a.modifybyblk();
+                                                         a.print();
+				  break;
+	case 11: a.delbyname();
+
+                                       a.print();
+				  break;
+	case 12: a.delbyatno();
+                       	        a.print();
+				  break;
+	case 13: a.delbyatmass();
+
+				a.print();
+				  break;
+	case 14: a.delbyblk();
+
+				a.print();
+				  break;
+	case 0 : exit(0);
+	default:cout<<"\n\tWrong choice ";
+	}
+	getch();
+	clrscr();
+	     }while(ch!=0);
+	getch();
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
